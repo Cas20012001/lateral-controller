@@ -1,0 +1,113 @@
+<launch>
+
+    <!-- Vehicle -->
+    <arg name="car_number" default="3"/>
+
+    <!-- Topics -->
+    <arg name="vicon_topic" default="/vicon/jetracer3"/>
+    <arg name="sensor_topic" default="/sensors_and_input_3"/>
+    <arg name="steering_topic" default="/steering_angle_3"/>
+
+    <!-- Desired circle -->
+    <arg name="center_x" default="0.0"/>
+    <arg name="center_y" default="0.0"/>
+    <arg name="radius" default="2.5"/>
+
+    <!--
+        1  = counterclockwise
+        -1 = clockwise
+    -->
+    <arg name="direction" default="1"/>
+
+    <!-- Pure-pursuit parameters -->
+    <arg name="lookahead" default="0.6"/>
+    <arg name="wheelbase" default="0.175"/>
+    <arg name="max_steering_angle" default="0.45"/>
+
+    <!-- Change to -1 if the steering direction is reversed -->
+    <arg name="steering_sign" default="1.0"/>
+
+    <!-- Vicon rigid-body orientation correction -->
+    <arg name="yaw_offset" default="0.0"/>
+
+    <!-- Delay compensation -->
+    <arg name="delay" default="0.165"/>
+
+    <!-- Execution -->
+    <arg name="control_rate" default="10.0"/>
+    <arg name="vicon_timeout" default="0.25"/>
+
+    <node
+        pkg="platoon_lateral_controller"
+        type="circle_lateral_controller.py"
+        name="circle_lateral_controller_$(arg car_number)"
+        output="screen"
+        required="true">
+
+        <param
+            name="car_number"
+            value="$(arg car_number)"/>
+
+        <param
+            name="vicon_topic"
+            value="$(arg vicon_topic)"/>
+
+        <param
+            name="sensor_topic"
+            value="$(arg sensor_topic)"/>
+
+        <param
+            name="steering_topic"
+            value="$(arg steering_topic)"/>
+
+        <param
+            name="center_x"
+            value="$(arg center_x)"/>
+
+        <param
+            name="center_y"
+            value="$(arg center_y)"/>
+
+        <param
+            name="radius"
+            value="$(arg radius)"/>
+
+        <param
+            name="direction"
+            value="$(arg direction)"/>
+
+        <param
+            name="lookahead"
+            value="$(arg lookahead)"/>
+
+        <param
+            name="wheelbase"
+            value="$(arg wheelbase)"/>
+
+        <param
+            name="max_steering_angle"
+            value="$(arg max_steering_angle)"/>
+
+        <param
+            name="steering_sign"
+            value="$(arg steering_sign)"/>
+
+        <param
+            name="yaw_offset"
+            value="$(arg yaw_offset)"/>
+
+        <param
+            name="delay"
+            value="$(arg delay)"/>
+
+        <param
+            name="control_rate"
+            value="$(arg control_rate)"/>
+
+        <param
+            name="vicon_timeout"
+            value="$(arg vicon_timeout)"/>
+
+    </node>
+
+</launch>
