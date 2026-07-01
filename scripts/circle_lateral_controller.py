@@ -538,3 +538,24 @@ class CircleLateralController(object):
 
         while not rospy.is_shutdown():
             self.compute_control()
+            marker_counter += 1
+
+            if marker_counter >= 50:
+                self.publish_circle_marker()
+                marker_counter = 0
+
+            rate.sleep()
+
+
+if __name__ == "__main__":
+    try:
+        rospy.init_node(
+            "circle_lateral_controller",
+            anonymous=False
+        )
+
+        controller = CircleLateralController()
+        controller.run()
+
+    except rospy.ROSInterruptException:
+        pass
