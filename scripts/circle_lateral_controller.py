@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import math
 
@@ -65,7 +65,7 @@ class CircleLateralController(object):
         )
 
         self.radius = float(
-            rospy.get_param("~radius", 2.5)
+            rospy.get_param("~radius", 5.0)
         )
 
         # +1 = counterclockwise
@@ -299,7 +299,8 @@ class CircleLateralController(object):
         if age > self.vicon_timeout:
             rospy.logwarn_throttle(
                 1.0,
-                "Vicon pose is stale: %.3f seconds old",
+                "Vicon pose on %s is stale: %.3f seconds old",
+                self.vicon_topic,
                 age
             )
             return False

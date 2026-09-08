@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+
+<launch>
+    <!-- Shared circle settings -->
+    <arg name="center_x" default="0.0"/>
+    <arg name="center_y" default="0.0"/>
+    <arg name="radius" default="5.0"/>
+    <arg name="lookahead" default="0.6"/>
+    <arg name="direction" default="1"/>
+
+    <!-- Simulated car 1 -->
+    <group ns="circle_follower_car1">
+        <include file="$(find platoon_lateral_controller)/launch/circle_lateral_controller.launch">
+            <arg name="car_number" value="1"/>
+
+            <arg name="vicon_topic"
+                 value="/car1/vicon/jetracer1"/>
+
+            <arg name="sensor_topic"
+                 value="/car1/sensors_and_input_1"/>
+
+            <arg name="steering_topic"
+                 value="/car1/steering_1"/>
+
+            <arg name="center_x" value="$(arg center_x)"/>
+            <arg name="center_y" value="$(arg center_y)"/>
+            <arg name="radius" value="$(arg radius)"/>
+            <arg name="lookahead" value="$(arg lookahead)"/>
+            <arg name="direction" value="$(arg direction)"/>
+        </include>
+    </group>
+
+    <!-- Simulated car 2 -->
+    <group ns="circle_follower_car2">
+        <include file="$(find platoon_lateral_controller)/launch/circle_lateral_controller.launch">
+            <!-- Both simulator instances use the internal suffix _1 -->
+            <arg name="car_number" value="1"/>
+
+            <arg name="vicon_topic"
+                 value="/car2/vicon/jetracer1"/>
+
+            <arg name="sensor_topic"
+                 value="/car2/sensors_and_input_1"/>
+
+            <arg name="steering_topic"
+                 value="/car2/steering_1"/>
+
+            <arg name="center_x" value="$(arg center_x)"/>
+            <arg name="center_y" value="$(arg center_y)"/>
+            <arg name="radius" value="$(arg radius)"/>
+            <arg name="lookahead" value="$(arg lookahead)"/>
+            <arg name="direction" value="$(arg direction)"/>
+        </include>
+    </group>
+</launch>
