@@ -7,7 +7,6 @@ import rospy
 
 from geometry_msgs.msg import PoseWithCovarianceStamped, Point
 from std_msgs.msg import Float32
-from tf.transformations import euler_from_quaternion
 from visualization_msgs.msg import Marker
 
 
@@ -277,15 +276,19 @@ class CircleLateralControllerReal(object):
 
         q = msg.pose.pose.orientation
 
-        quaternion = (
-            q.x,
-            q.y,
-            q.z,
-            q.w
+        sin_yaw = 2.0 * (
+            q.w * q.z
+            + q.x * q.y
         )
 
-        _, _, measured_yaw = euler_from_quaternion(
-            quaternion
+        cos_yaw = 1.0 - 2.0 * (
+            q.y * q.y
+            + q.z * q.z
+        )
+
+        measured_yaw = math.atan2(
+            sin_yaw,
+            cos_yaw
         )
 
         yaw = self.wrap_angle(
